@@ -7,7 +7,6 @@ from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (
-    AlreadyJoined,
     NoActiveGroupCall,
     TelegramServerError,
 )
