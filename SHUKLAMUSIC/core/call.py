@@ -280,7 +280,7 @@ class Call(PyTgCalls):
         await assistant.leave_group_call(config.LOGGER_ID)
 
 
-   async def join_call(
+    async def join_call(
     self,
     chat_id: int,
     original_chat_id: int,
