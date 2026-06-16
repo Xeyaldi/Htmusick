@@ -7,15 +7,15 @@ from pyrogram import filters
 load_dotenv()
 
 # Required credentials
-API_ID = int(getenv("API_ID"))
-API_HASH = getenv("API_HASH")
-BOT_TOKEN = getenv("BOT_TOKEN")
-
+# Required credentials
+API_ID = int("32232976")
+API_HASH = "8805677842:AAGqrY3Za68ElDD3opBaEv9qDyy7hLhdjPQ"
+BOT_TOKEN = "8805677842:AAGqrY3Za68ElDD3opBaEv9qDyy7hLhdjPQ"
 # Bot and owner info
-OWNER_USERNAME = getenv("OWNER_USERNAME", "")
-BOT_USERNAME = getenv("BOT_USERNAME", "")
-BOT_NAME = getenv("BOT_NAME", "")
-ASSUSERNAME = getenv("ASSUSERNAME", "")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "@wehwi032")
+BOT_USERNAME = getenv("BOT_USERNAME", "@Ht_music_robot")
+BOT_NAME = getenv("BOT_NAME", "ʜᴛ ᴍᴜsɪᴄ")
+ASSUSERNAME = getenv("ASSUSERNAME", "htasistan032")
 
 # MongoDB
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
