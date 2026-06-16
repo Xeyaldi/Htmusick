@@ -281,35 +281,46 @@ class Call(PyTgCalls):
 
 
     async def join_call(
-    self,
-    chat_id: int,
-    original_chat_id: int,
-    link,
-    video: Union[bool, str] = None,
-    image: Union[bool, str] = None,
-):
-    assistant = await group_assistant(self, chat_id)
-    language = await get_lang(chat_id)
-    _ = get_string(language)
-    if video:
-        stream = AudioVideoPiped(
-            link,
-            audio_parameters=HighQualityAudio(),
-            video_parameters=MediumQualityVideo(),
-        )
-    else:
-        stream = AudioPiped(link, audio_parameters=HighQualityAudio())
-    try:
-        await assistant.join_group_call(
-            chat_id,
-            stream,
-        )
-    except NoActiveGroupCall:
-        raise AssistantErr(_["call_8"])
-    except AlreadyJoinedError:
-        raise AssistantErr(_["call_9"])
-    except TelegramServerError:
-        raise AssistantErr(_["call_10"])
+        self,
+        chat_id: int,
+        original_chat_id: int,
+        link,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
+    ):
+        assistant = await group_assistant(self, chat_id)
+        language = await get_lang(chat_id)
+        _ = get_string(language)
+        if video:
+            stream = AudioVideoPiped(
+                link,
+                audio_parameters=HighQualityAudio(),
+                video_parameters=MediumQualityVideo(),
+            )
+        else:
+            stream = AudioPiped(link, audio_parameters=HighQualityAudio())
+        try:
+            await assistant.join_group_call(
+                chat_id,
+                stream,
+            )
+            # Bu hissəni try daxilinə çəkdim ki, xəta yoxdursa işləsin
+            await add_active_chat(chat_id)
+            await music_on(chat_id)
+            if video:
+                await add_active_video_chat(chat_id)
+            if await is_autoend():
+                counter[chat_id] = {}
+                users = len(await assistant.get_participants(chat_id))
+                if users == 1:
+                    autoend[chat_id] = datetime.now() + timedelta(minutes=1)
+        except NoActiveGroupCall:
+            raise AssistantErr(_["call_8"])
+        except AlreadyJoinedError:
+            raise AssistantErr(_["call_9"])
+        except TelegramServerError:
+            raise AssistantErr(_["call_10"])
+            
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
