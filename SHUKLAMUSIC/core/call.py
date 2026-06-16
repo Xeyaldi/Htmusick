@@ -271,14 +271,15 @@ class Call(PyTgCalls):
         await assistant.change_stream(chat_id, stream)
 
     async def stream_call(self, link):
-    assistant = await group_assistant(self, config.LOGGER_ID)
-    await assistant.join_group_call(
-        config.LOGGER_ID,
-        AudioVideoPiped(link),
-    )
-    await asyncio.sleep(0.2)
-    await assistant.leave_group_call(config.LOGGER_ID)
-    
+        assistant = await group_assistant(self, config.LOGGER_ID)
+        await assistant.join_group_call(
+            config.LOGGER_ID,
+            AudioVideoPiped(link),
+        )
+        await asyncio.sleep(0.2)
+        await assistant.leave_group_call(config.LOGGER_ID)
+
+
    async def join_call(
     self,
     chat_id: int,
